@@ -1,9 +1,22 @@
 package dev.colleguesapi.entite;
 
+import java.time.LocalDate;
+
 public class Collegue {
 
-		String matricule, nom, prenoms,email, dateDeNassaince,photoUrl;
+		final String TIME_PATTERN = "yyyy-MM-d";
+		String matricule, nom, prenom,email, photoUrl;
+		LocalDate dateDeNassaince;
 
+		public Collegue (String nom,String prenom,String email,LocalDate dateDeNassaince,String photoUrl) {
+			
+			this.nom = nom;
+			this.prenom = prenom;
+			this.email = email;
+			this.dateDeNassaince = dateDeNassaince;
+			this.photoUrl = photoUrl;
+		}
+		
 		public String getMatricule() {
 			return matricule;
 		}
@@ -20,12 +33,12 @@ public class Collegue {
 			this.nom = nom;
 		}
 
-		public String getPrenoms() {
-			return prenoms;
+		public String getPrenom() {
+			return prenom;
 		}
 
-		public void setPrenoms(String prenoms) {
-			this.prenoms = prenoms;
+		public void setPrenom(String prenoms) {
+			this.prenom = prenoms;
 		}
 
 		public String getEmail() {
@@ -36,11 +49,11 @@ public class Collegue {
 			this.email = email;
 		}
 
-		public String getDateDeNassaince() {
+		public LocalDate getDateDeNassaince() {
 			return dateDeNassaince;
 		}
 
-		public void setDateDeNassaince(String dateDeNassaince) {
+		public void setDateDeNassaince(LocalDate dateDeNassaince) {
 			this.dateDeNassaince = dateDeNassaince;
 		}
 

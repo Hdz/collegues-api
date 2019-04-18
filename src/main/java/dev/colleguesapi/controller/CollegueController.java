@@ -3,7 +3,12 @@ package dev.colleguesapi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,20 +26,36 @@ gérer une requête HTTP et produire une réponse HTTP
  */
 @RestController
 //Ici cette classe va répondre aux requêtes `/exemples`
-@RequestMapping("/colleguesapi")
+@RequestMapping("/collegues")
 public class CollegueController {
-
-	// Cette méthode va être invoquée pour une requête HTTP `GET /exemples`
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody // parser l'objet Client
-	public List<String> recherchercollegues(@RequestParam ("nomCollegue") String nomCollegue) {
-		CollegueService collegue1 = new CollegueService();
+	private CollegueService collegue1 = new CollegueService();
+	
+	// Cette méthode va être invoquée pour une requête HTTP `GET /collegues`?nomCollegue =
+	@GetMapping
+	public List<String> recherchercollegues(@RequestParam("nomCollegue") String nomCollegue) {
 		List<String> collegueTrouve = new ArrayList<>();
-		
-		for (Collegue c : collegue1.rechercheParNom(nomCollegue)) {
-			collegueTrouve.add(c.getMatricule());
-		}		
+		for (Collegue c : collegue1.rechercherParNom(nomCollegue)) {
+			collegueTrouve.add(c.getNom());
 
+		}		
 		return collegueTrouve;
 	}
+	
+	@GetMapping("/{matricule}")
+	public Collegue recherchermatricules(@PathVariable String matricule) throws Exception {
+		
+		Collegue matriculetrouve = collegue1.rechercherParMatricule(matricule); 
+				
+
+		return matriculetrouve;
+	}
+	
+	@PostMapping
+	public ResponseEntity<Collegue> ajouterCollegue(@RequestBody Collegue collegueAAjouter)
+	{
+		
+		Collegue collegueTemp = collegue1.ajouterCollegue(collegueAAjouter);
+		return ResponseEntity.status(HttpStatus.OK).body(collegueTemp);
+}
+
 }
