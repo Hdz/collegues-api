@@ -7,6 +7,9 @@ public class Collegue {
 		final String TIME_PATTERN = "yyyy-MM-d";
 		String matricule, nom, prenom,email, photoUrl;
 		LocalDate dateDeNassaince;
+		
+		public Collegue() {
+		}
 
 		public Collegue (String nom,String prenom,String email,LocalDate dateDeNassaince,String photoUrl) {
 			
@@ -17,6 +20,20 @@ public class Collegue {
 			this.photoUrl = photoUrl;
 		}
 		
+		public Collegue(String matricule, String nom, String prenoms, String email, String photoUrl,
+				LocalDate dateDeNaissance)
+		{
+			super();
+			this.matricule = matricule;
+			this.nom = nom;
+			this.prenom = prenoms;
+			this.email = email;
+			this.dateDeNassaince = dateDeNaissance;
+			this.photoUrl = photoUrl;
+	}
+		
+	
+
 		public String getMatricule() {
 			return matricule;
 		}

@@ -1,6 +1,11 @@
 package exception;
 
 public class CollegueNotFoundException extends RuntimeException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public CollegueNotFoundException() {
 	super();
 		// TODO Auto-generated constructor stub

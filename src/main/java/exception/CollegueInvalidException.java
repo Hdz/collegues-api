@@ -9,7 +9,7 @@ public class CollegueInvalidException extends RuntimeException {
 	/**
 	 * 
 	 */
-	static String msg;
+	static String msg = new String ();;
 	
 	public CollegueInvalidException(String message)
 	{
