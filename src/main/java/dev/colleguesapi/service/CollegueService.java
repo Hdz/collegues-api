@@ -10,16 +10,17 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.colleguesapi.entite.Collegue;
-import exception.CollegueInvalidException;
-import exception.CollegueNotFoundException;
+import dev.colleguesapi.exception.CollegueInvalidException;
+import dev.colleguesapi.exception.CollegueNotFoundException;
+import dev.colleguesapi.repository.CollegueRepository;
 
 @Service
 public class CollegueService {
 
-	private Map<String, Collegue> data = new HashMap<>();
 
 	final String TIME_PATTERN = "yyyy-MM-d";
 	LocalDate date1 = LocalDate.parse("1950-11-14", DateTimeFormatter.ofPattern(TIME_PATTERN));
@@ -27,30 +28,19 @@ public class CollegueService {
 	LocalDate date3 = LocalDate.parse("1950-11-14", DateTimeFormatter.ofPattern(TIME_PATTERN));
 
 
-	public CollegueService() {
-
-		String matriculeTemp = UUID.randomUUID().toString();
-		LocalDate date1 = LocalDate.parse("1950-11-14", DateTimeFormatter.ofPattern(TIME_PATTERN));
-
-		data.put(matriculeTemp,	new Collegue(matriculeTemp, "GUY", "John", "mail.mail@mail.com", "url", date1));
-		matriculeTemp = UUID.randomUUID().toString();
-		data.put(matriculeTemp,	new Collegue(matriculeTemp, "ROBERT", "Pier", "mail.mail@mail.com", "url", date1));
-		matriculeTemp = UUID.randomUUID().toString();
-		data.put(matriculeTemp,	new Collegue(matriculeTemp, "JEAN", "Jak", "mail.mail@mail.com", "url", date1));
-		data.put("1", new Collegue("1", "PHILIPPE", "Albert", "mail.mail@mail.com", "url", date1));
-	}
-
-
-
+	
 	public List<Collegue> rechercherParNom(String nomRecherche)
 	{
-		return data.values().stream().filter(t -> t.getNom().equals(nomRecherche)).collect(Collectors.toList());
+		return colRepo.findAll().stream().filter(t -> t.getNom().equals(nomRecherche)).collect(Collectors.toList());
 	}
 
 	public Collegue rechercherParMatricule(String matriculeRecherche) throws CollegueNotFoundException
 	{
-		return Optional.ofNullable(data.get(matriculeRecherche)).orElseThrow(CollegueNotFoundException::new);
+		return (colRepo.findById(matriculeRecherche).orElseThrow(CollegueNotFoundException::new));
 	}
+
+	@Autowired
+	CollegueRepository colRepo;
 
 	public Collegue ajouterCollegue(Collegue collegueAAjouter) throws CollegueInvalidException {
 
@@ -94,18 +84,13 @@ public class CollegueService {
 
 
 		collegueAAjouter.setMatricule(UUID.randomUUID().toString());
-		data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
+		colRepo.save(collegueAAjouter);
 		return collegueAAjouter;
 	}
 
 	public Collegue modifierEmail(String matricule, String email)
 	{
-		if (!data.containsKey(matricule))
-		{
-			throw new CollegueNotFoundException();
-		}
-
-		Collegue collegue = data.get(matricule);
+			Collegue collegue = colRepo.findById(matricule).orElseThrow(CollegueNotFoundException::new);
 
 		if (email.length() <= 3)
 		{
@@ -118,19 +103,15 @@ public class CollegueService {
 		}
 
 		collegue.setEmail(email);
-		data.put(matricule, collegue);
-
+		colRepo.save(collegue);
 		return collegue;
 	}
 
 	public Collegue modifierPhotoUrl(String matricule, String photoUrl)
 	{
-		if (!data.containsKey(matricule))
-		{
-			throw new CollegueNotFoundException();
-		}
+		
 
-		Collegue collegue = data.get(matricule);
+		Collegue collegue = colRepo.findById(matricule).orElseThrow(CollegueNotFoundException::new);
 
 		if (!photoUrl.contains("http"))
 		{
@@ -139,10 +120,20 @@ public class CollegueService {
 		}
 
 		collegue.setPhotoUrl(photoUrl);
-		data.put(matricule, collegue);
-
+		colRepo.save(collegue);
+		
 		return collegue;
 	}
+
+	public CollegueRepository getColRepo() {
+		return colRepo;
+	}
+
+	public void setColRepo(CollegueRepository colRepo) {
+		this.colRepo = colRepo;
+	}
+
+
 
 }
 

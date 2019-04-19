@@ -1,4 +1,4 @@
-package exception;
+package dev.colleguesapi.exception;
 
 public class CollegueInvalidException extends RuntimeException {
 

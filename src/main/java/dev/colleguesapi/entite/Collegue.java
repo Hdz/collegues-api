@@ -2,10 +2,27 @@ package dev.colleguesapi.entite;
 
 import java.time.LocalDate;
 
-public class Collegue {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
+@Entity
+public class Collegue {
+		
+		@Transient
 		final String TIME_PATTERN = "yyyy-MM-d";
-		String matricule, nom, prenom,email, photoUrl;
+		@Id
+		String matricule;
+		@Column
+		String nom;
+		@Column
+		String prenom ;
+		@Column
+		String email ;
+		@Column
+		String photoUrl;
+		@Column
 		LocalDate dateDeNassaince;
 		
 		public Collegue() {
