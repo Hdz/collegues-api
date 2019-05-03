@@ -26,14 +26,18 @@ static final String TIME_PATTERN = "yyyy-MM-d";
 
 		String matriculeTemp = UUID.randomUUID().toString();
 		
-		collegueRepo.save(new Collegue(matriculeTemp, "Bobbi", "Albert", "mail@mail.com", "http://nophoto.com", date1));
+		collegueRepo.save(new Collegue(matriculeTemp, "Bobbi", "Albert", "mail@mail.com", "http://fr.web.img4.acsta.net/r_1280_720/medias/nmedia/18/66/75/86/18953143.jpg", date1));
 		matriculeTemp = UUID.randomUUID().toString();
 		
-		collegueRepo.save(new Collegue(matriculeTemp, "ROBERT", "Noelle", "mail@mail.com", "http://nophoto.com", date1));
+		collegueRepo.save(new Collegue(matriculeTemp, "ROBERT", "Noelle", "mail@mail.com", "http://fr.web.img4.acsta.net/r_1280_720/medias/nmedia/18/66/75/86/18953143.jpg", date1));
 		matriculeTemp = UUID.randomUUID().toString();
 		
-		collegueRepo.save(new Collegue(matriculeTemp, "JEAN", "Arthur", "mail@mail.com", "http://nophoto.com", date1));
+		collegueRepo.save(new Collegue(matriculeTemp, "JEAN", "Arthur", "mail@mail.com", "http://fr.web.img4.acsta.net/r_1280_720/medias/nmedia/18/66/75/86/18953143.jpg", date1));
 
-		collegueRepo.save(new Collegue("1", "GUY", "Robert", "mail@mail.com", "http://nophoto.com", date1));
+		collegueRepo.save(new Collegue("1", "GUY", "Robert", "mail@mail.com", "http://fr.web.img4.acsta.net/r_1280_720/medias/nmedia/18/66/75/86/18953143.jpg", date1));
+		collegueRepo.save(new Collegue("2", "ROBERT", "Noelle", "mail@mail.com", "http://fr.web.img4.acsta.net/r_1280_720/medias/nmedia/18/66/75/86/18953143.jpg", date1));
+		collegueRepo.save(new Collegue("3", "JEAN", "Arthur", "mail@mail.com", "http://fr.web.img4.acsta.net/r_1280_720/medias/nmedia/18/66/75/86/18953143.jpg", date1));
+
+
 }
 }

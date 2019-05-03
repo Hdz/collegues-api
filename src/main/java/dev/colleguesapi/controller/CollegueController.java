@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ gérer une requête HTTP et produire une réponse HTTP
 @RestController
 //Ici cette classe va répondre aux requêtes `/exemples`
 @RequestMapping("/collegues")
+@CrossOrigin
 public class CollegueController {
 	@Autowired
 	private CollegueService collegue1 = new CollegueService();
@@ -37,7 +39,8 @@ public class CollegueController {
 	public List<String> recherchercollegues(@RequestParam("nomCollegue") String nomCollegue) {
 		List<String> collegueTrouve = new ArrayList<>();
 		for (Collegue c : collegue1.rechercherParNom(nomCollegue)) {
-			collegueTrouve.add(c.getNom());
+			collegueTrouve.add(c.getMatricule());
+
 
 		}		
 		return collegueTrouve;
