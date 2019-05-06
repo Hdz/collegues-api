@@ -13,6 +13,6 @@ import dev.colleguesapi.entite.Collegue;
 	{
 		 @Query("select distinct c from Collegue c where c.nom = :nom")
 		 List<Collegue> findDistinctPeopleByNom(@Param("nom") String nom);
-		 
+		 List<Collegue> findByEmail(String email);
 		 
 	}

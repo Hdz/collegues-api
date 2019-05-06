@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.colleguesapi.entite.Collegue;
+import dev.colleguesapi.entite.ColleguePhoto;
 import dev.colleguesapi.exception.CollegueInvalidException;
 import dev.colleguesapi.exception.CollegueNotFoundException;
 import dev.colleguesapi.repository.CollegueRepository;
@@ -34,11 +35,28 @@ public class CollegueService {
 		return colRepo.findAll().stream().filter(t -> t.getNom().equals(nomRecherche)).collect(Collectors.toList());
 	}
 
+	public boolean rechercheParMail(String email){
+		if (!colRepo.findByEmail(email).isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
 	public Collegue rechercherParMatricule(String matriculeRecherche) throws CollegueNotFoundException
 	{
 		return (colRepo.findById(matriculeRecherche).orElseThrow(CollegueNotFoundException::new));
 	}
 
+	
+	public List<ColleguePhoto> recupColleguePhoto() {
+		return colRepo.findAll()
+				.stream()
+				.map(col -> new ColleguePhoto(col.getMatricule(),col.getPhotoUrl()))
+				.collect(Collectors.toList())
+				;
+	}
+	
+	
 	@Autowired
 	CollegueRepository colRepo;
 

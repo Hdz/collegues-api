@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.colleguesapi.entite.Collegue;
 import dev.colleguesapi.entite.CollegueACompleter;
+import dev.colleguesapi.entite.ColleguePhoto;
 import dev.colleguesapi.service.CollegueService;
 
 
@@ -26,10 +27,11 @@ import dev.colleguesapi.service.CollegueService;
 Un contrôleur est un composant de Spring qui permet de
 gérer une requête HTTP et produire une réponse HTTP
  */
+@CrossOrigin
 @RestController
 //Ici cette classe va répondre aux requêtes `/exemples`
 @RequestMapping("/collegues")
-@CrossOrigin
+
 public class CollegueController {
 	@Autowired
 	private CollegueService collegue1 = new CollegueService();
@@ -45,6 +47,18 @@ public class CollegueController {
 		}		
 		return collegueTrouve;
 	}
+	
+	 @PostMapping(path = "/verifMail")	
+	 public ResponseEntity<Boolean> mailExist(@RequestBody String email) {
+		
+		boolean emailexist = collegue1.rechercheParMail(email);
+		return ResponseEntity.status(HttpStatus.OK).body(emailexist);		
+	}
+
+	 @GetMapping(value ="/photos")
+	 public List<ColleguePhoto> recupPhoto(){
+		 return collegue1.recupColleguePhoto();
+	 }
 	
 	@GetMapping("/{matricule}")
 	public Collegue recherchermatricules(@PathVariable String matricule) throws Exception {
