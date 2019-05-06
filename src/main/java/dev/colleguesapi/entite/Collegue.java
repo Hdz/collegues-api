@@ -23,17 +23,17 @@ public class Collegue {
 		@Column
 		String photoUrl;
 		@Column
-		LocalDate dateDeNassaince;
+		LocalDate dateDeNaissance;
 		
 		public Collegue() {
 		}
 
-		public Collegue (String nom,String prenom,String email,LocalDate dateDeNassaince,String photoUrl) {
+		public Collegue (String nom,String prenom,String email,LocalDate dateDeNaissance,String photoUrl) {
 			
 			this.nom = nom;
 			this.prenom = prenom;
 			this.email = email;
-			this.dateDeNassaince = dateDeNassaince;
+			this.dateDeNaissance = dateDeNaissance;
 			this.photoUrl = photoUrl;
 		}
 		
@@ -45,7 +45,7 @@ public class Collegue {
 			this.nom = nom;
 			this.prenom = prenoms;
 			this.email = email;
-			this.dateDeNassaince = dateDeNaissance;
+			this.dateDeNaissance = dateDeNaissance;
 			this.photoUrl = photoUrl;
 	}
 		
@@ -83,12 +83,12 @@ public class Collegue {
 			this.email = email;
 		}
 
-		public LocalDate getDateDeNassaince() {
-			return dateDeNassaince;
+		public LocalDate getDateDeNaissance() {
+			return dateDeNaissance;
 		}
 
-		public void setDateDeNassaince(LocalDate dateDeNassaince) {
-			this.dateDeNassaince = dateDeNassaince;
+		public void setDateDeNaissance(LocalDate dateDeNaissance) {
+			this.dateDeNaissance = dateDeNaissance;
 		}
 
 		public String getPhotoUrl() {

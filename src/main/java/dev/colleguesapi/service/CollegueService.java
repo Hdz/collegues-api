@@ -76,7 +76,7 @@ public class CollegueService {
 
 
 		LocalDate majeur = LocalDate.now();
-		Period period = Period.between(collegueAAjouter.getDateDeNassaince(), majeur);
+		Period period = Period.between(collegueAAjouter.getDateDeNaissance(), majeur);
 		if (period.getYears() < 18)
 		{
 			throw new CollegueInvalidException("Vous devez être majeur pour vous inscrire");
