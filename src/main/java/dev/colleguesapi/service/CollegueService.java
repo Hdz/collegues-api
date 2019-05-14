@@ -11,13 +11,16 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import dev.colleguesapi.entite.Collegue;
+import dev.colleguesapi.entite.CollegueConnecte;
 import dev.colleguesapi.entite.ColleguePhoto;
 import dev.colleguesapi.exception.CollegueInvalidException;
 import dev.colleguesapi.exception.CollegueNotFoundException;
 import dev.colleguesapi.repository.CollegueRepository;
+import dev.colleguesapi.repository.UtilisateurRepository;
 
 @Service
 public class CollegueService {
@@ -28,7 +31,13 @@ public class CollegueService {
 	LocalDate date2 = LocalDate.parse("1950-11-14", DateTimeFormatter.ofPattern(TIME_PATTERN));
 	LocalDate date3 = LocalDate.parse("1950-11-14", DateTimeFormatter.ofPattern(TIME_PATTERN));
 
+	@Autowired
+	CollegueRepository collegueRepository;
 
+	@Autowired
+	private UtilisateurRepository utilisateurRepository;
+
+	
 	
 	public List<Collegue> rechercherParNom(String nomRecherche)
 	{
@@ -151,6 +160,26 @@ public class CollegueService {
 		this.colRepo = colRepo;
 	}
 
+		
+	public CollegueRepository getCollegueRepository() {
+		return collegueRepository;
+}
+	
+	public void setCollegueRepository(CollegueRepository collegueRepository) {
+		this.collegueRepository = collegueRepository;
+	}
+
+	public CollegueConnecte recupCollegueActif(String email) {
+		CollegueConnecte colConnect = new CollegueConnecte();
+		Collegue CollegueTrouve = this.utilisateurRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+		colConnect.setEmail(CollegueTrouve.getEmail());
+		colConnect.setNom(CollegueTrouve.getNom());
+		colConnect.setPrenom(CollegueTrouve.getPrenom());
+		colConnect.setRoles(CollegueTrouve.getRoles());
+		colConnect.setPhotoUrl(CollegueTrouve.getPhotoUrl());
+		return colConnect;
+	}
 
 
 }
